@@ -21,7 +21,6 @@ export class Server {
   }
 
   async start() {
-
     // Middleware
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));

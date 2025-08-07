@@ -11,7 +11,6 @@ export class RegisterUserDto {
 
     const { name, email, password } = object;
 
-
     if (!name) return ['Missing name'];
     if (!email) return ['Missing email'];
     if (!password) return ['Missing password'];
@@ -29,10 +28,10 @@ export class RegisterUserDto {
     }
 
     return [
-      'User registered successfully',
+      '',
       new RegisterUserDto(
         name,
-        email.toLowerCase(),
+        email,
         password
       )
     ];
