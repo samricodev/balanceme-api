@@ -2,10 +2,10 @@
   "name": "balanceme-api",
   "version": "1.0.0",
   "main": "src/index.js",
-  "type": "commonjs",
   "scripts": {
-    "start": "node src/index",
-    "start.dev": "nodemon -L",
+    "dev": "tsnd --respawn --clear src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,7 +13,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.2.1",
+    "env-var": "^7.5.0",
     "express": "^5.1.0",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.0",
+    "rimraf": "^6.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.2"
   }
 }

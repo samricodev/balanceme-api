@@ -6,8 +6,6 @@ services:
       - "3000:3000"
     networks:
       - balanceme-network
-    environment:
-      - NODE_ENV=
   balanceme-db:
     image: mysql:8
     container_name: balanceme-db
