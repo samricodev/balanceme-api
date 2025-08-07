@@ -1,9 +1,11 @@
 import { Request,Response } from "express";
-import { RegisterUserDto } from "../../domain";
+import { RegisterUserDto, AuthRepository } from "../../domain";
 
 export class AuthController {
 
-  constructor () {}
+  constructor (
+    private readonly authRepository: AuthRepository
+  ) {}
 
   registerUser = (req: Request, res: Response) => {
     const [error, userRegisterDTO] = RegisterUserDto.create(req.body);
@@ -11,6 +13,10 @@ export class AuthController {
     if (error) {
       return res.status(400).json({ error });
     }
+
+    this.authRepository.registerUser(userRegisterDTO!)
+      .then(user => res.json(user))
+      .catch(err => res.status(500).json({ err }));
 
     return res.status(201).json({
       message: "User registered successfully",
