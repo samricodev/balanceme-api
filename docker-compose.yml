@@ -1,15 +1,12 @@
 services:
   balanceme-db:
-    image: mysql:8
+    image: mongo:latest
     container_name: balanceme-db
-    ports:
-      - "3306:3306"
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=balanceme
-      - MYSQL_USER=balanceme
-      - MYSQL_PASSWORD=balanceme
+      - MONGO_INITDB_ROOT_USERNAME=balanceme
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
     volumes:
-      - db_data:/var/lib/mysql
-volumes:
-  db_data:  
+      - ./balanceme-db-data:/data/db
