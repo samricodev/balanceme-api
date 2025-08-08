@@ -17,7 +17,7 @@ export class AuthController {
     this.authRepository.registerUser(userRegisterDTO!)
       .then(user => res.json(user))
       .catch(err => {
-        res.status(510).json({ error: err.message })
+        res.status(500).json({ error: err.message })
         console.log(err);
       });
 
