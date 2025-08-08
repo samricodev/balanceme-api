@@ -19,4 +19,4 @@ export class MongoDatabase {
       throw error;
     }
   }
-} 
+}

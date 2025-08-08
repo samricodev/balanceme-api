@@ -25,4 +25,4 @@ export class CustomError extends Error {
   static internalServerError(message: string = 'Internal Server Error'): CustomError {
     return new CustomError(500, message);
   }
-} 
+}

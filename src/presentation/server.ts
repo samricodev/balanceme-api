@@ -10,10 +10,10 @@ export class Server {
   private readonly port: number;
   private readonly routes: express.Router;
 
-  constructor ( options: Options) {
-    const { 
+  constructor(options: Options) {
+    const {
       port = 3000,
-      routes  
+      routes
     } = options;
 
     this.port = port;
@@ -35,5 +35,5 @@ export class Server {
     this.app.listen(this.port, () => {
       console.log(`Server is running on http://localhost:${this.port}`);
     });
-    }
+  }
 }
