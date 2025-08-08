@@ -1,18 +1,9 @@
 services:
-  balanceme-api:
-    build: .
-    container_name: balanceme-api
-    ports:
-      - "3000:3000"
-    networks:
-      - balanceme-network
   balanceme-db:
     image: mysql:8
     container_name: balanceme-db
     ports:
       - "3306:3306"
-    networks:
-      - balanceme-network
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=balanceme
@@ -20,8 +11,5 @@ services:
       - MYSQL_PASSWORD=balanceme
     volumes:
       - db_data:/var/lib/mysql
-networks:
-  balanceme-network:
-    driver: bridge
 volumes:
   db_data:  
