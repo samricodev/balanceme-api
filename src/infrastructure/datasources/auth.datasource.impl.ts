@@ -2,6 +2,7 @@ import { BcryptAdapter } from '../../config';
 import { UserModel } from '../../data/mongodb';
 import { UserMapper } from '../mappers/user.mapper';
 import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from '../../domain';
+import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto';
 
 type HashFunction = (password: string) => string;
 type CompareFunction = (password: string, hashed: string) => boolean;
@@ -42,4 +43,28 @@ export class AuthDataSourceImpl implements AuthDataSource {
       throw CustomError.internalServerError();
     }
   }
+
+  async loginUser(loginUserDTO: LoginUserDto): Promise<any> {
+    const { email, password } = loginUserDTO;
+    try {
+      const user = await UserModel.findOne({ email });
+      if (!user) {
+        console.log('User not found');
+        throw CustomError.notFound('User not found');
+      }
+      const isPasswordValid = this.comparePassword(password, user.password);
+      if (!isPasswordValid) {
+        console.log('Credentials do not match');
+        throw CustomError.unauthorized('Credentials do not match');
+      }
+      return user;
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error logging in user');
+      throw CustomError.internalServerError();
+    }
+  }
+
 }

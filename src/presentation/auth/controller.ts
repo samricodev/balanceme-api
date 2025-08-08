@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { RegisterUserDto, AuthRepository, CustomError } from "../../domain";
 import { JwtAdapter } from "../../config";
+import { Request, Response } from "express";
+import { RegisterUserDto, LoginUserDto, AuthRepository, CustomError } from "../../domain";
 
 export class AuthController {
 
@@ -25,6 +25,22 @@ export class AuthController {
     this.authRepository.registerUser(userRegisterDTO!)
       .then(async (user) => {
         res.json({
+          user
+        });
+      })
+      .catch(err => this.handleError(err, res));
+
+  }
+
+  loginUser = (req: Request, res: Response) => {
+    const [error, loginUserDTO] = LoginUserDto.login(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
+    this.authRepository.loginUser(loginUserDTO!)
+      .then(async (user) => {
+        res.json({
           user,
           token: await JwtAdapter.generateToken({
             id: user.id,
@@ -33,11 +49,6 @@ export class AuthController {
         });
       })
       .catch(err => this.handleError(err, res));
-
-  }
-
-  loginUser = (req: Request, res: Response) => {
-
   }
 
 } 
