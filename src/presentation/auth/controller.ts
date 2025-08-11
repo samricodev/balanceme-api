@@ -8,6 +8,7 @@ import {
   RegisterUser,
   LoginUser
 } from "../../domain";
+import { ReadUsersUseCase } from "../../domain/use-cases/auth/read-users.use-case";
 
 export class AuthController {
 
@@ -50,11 +51,10 @@ export class AuthController {
   }
 
   getUsers = (req: Request, res: Response) => {
-    UserModel.find()
+    new ReadUsersUseCase(this.authRepository)
+      .execute()
       .then(users => {
-        res.json({
-          users
-        });
+        res.status(200).json(users);
       })
       .catch(err => this.handleError(err, res));
   }

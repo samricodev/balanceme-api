@@ -10,7 +10,6 @@ export class AuthMiddleware {
     if (!authorization.startsWith('Bearer ')) return res.status(401).json({ error: 'Invalid Bearer token' });
 
     const token = authorization.split(' ').at(1) || '';
-    console.log('Token validated:', token);
 
     try {
       const payload = await JwtAdapter.verifyToken<{ id: string; email: string }>(token);

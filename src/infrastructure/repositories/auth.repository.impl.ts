@@ -1,5 +1,10 @@
-import { AuthDataSource, AuthRepository, RegisterUserDto, UserEntity } from "../../domain";
-import { LoginUserDto } from "../../domain/dtos/auth/login-user.dto";
+import { 
+  AuthDataSource, 
+  AuthRepository, 
+  RegisterUserDto, 
+  UserEntity, 
+  LoginUserDto
+} from "../../domain";
 
 export class AuthRepositoryImpl implements AuthRepository {
   constructor (private readonly authDatasource: AuthDataSource) {
@@ -11,5 +16,21 @@ export class AuthRepositoryImpl implements AuthRepository {
 
   loginUser(loginUser: LoginUserDto): Promise<UserEntity> {
     return this.authDatasource.loginUser(loginUser);
+  }
+
+  /* getMyProfile(): Promise<UserEntity> {
+    return this.authDatasource.getMyProfile();
+  }
+
+  updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity> {
+    return this.authDatasource.updateMyProfile(userId, userData);
+  }
+
+  deleteMyProfile(userId: string): Promise<void> {
+    return this.authDatasource.deleteMyProfile(userId); 
+  }*/
+
+  readUsers(): Promise<UserEntity[]> {
+    return this.authDatasource.readUsers();
   }
 }

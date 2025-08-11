@@ -59,12 +59,30 @@ export class AuthDataSourceImpl implements AuthDataSource {
       }
 
       return UserMapper.userEntityFromObject(user);
-    
+
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
       }
       console.log('Error logging in user');
+      throw CustomError.internalServerError();
+    }
+  }
+
+  async readUsers(): Promise<UserEntity[]> {
+    try {
+      const users = await UserModel.find();
+      if (!users || users.length === 0) {
+        console.log('No users found');
+        throw CustomError.notFound('No users found');
+      }
+
+      return users.map(user => UserMapper.userEntityFromObject(user));
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error reading users');
       throw CustomError.internalServerError();
     }
   }
