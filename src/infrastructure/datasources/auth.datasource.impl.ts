@@ -1,8 +1,8 @@
 import { BcryptAdapter } from '../../config';
 import { UserModel } from '../../data/mongodb';
 import { UserMapper } from '../mappers/user.mapper';
-import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from '../../domain';
 import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto';
+import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from '../../domain';
 
 type HashFunction = (password: string) => string;
 type CompareFunction = (password: string, hashed: string) => boolean;

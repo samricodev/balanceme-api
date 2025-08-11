@@ -1,5 +1,6 @@
 import { JwtAdapter } from "../../config";
 import { Request, Response } from "express";
+import { UserModel } from "../../data/mongodb";
 import { RegisterUserDto, LoginUserDto, AuthRepository, CustomError } from "../../domain";
 
 export class AuthController {
@@ -46,6 +47,16 @@ export class AuthController {
             id: user.id,
             email: user.email,
           })
+        });
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  getUsers = (req: Request, res: Response) => {
+    UserModel.find()
+      .then(users => {
+        res.json({
+          users
         });
       })
       .catch(err => this.handleError(err, res));
