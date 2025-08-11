@@ -9,7 +9,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     return this.authDatasource.registerUser(userRegister);
   }
 
-  loginUser(loginUser: LoginUserDto): Promise<any> {
+  loginUser(loginUser: LoginUserDto): Promise<UserEntity> {
     return this.authDatasource.loginUser(loginUser);
   }
 }

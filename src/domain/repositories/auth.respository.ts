@@ -4,5 +4,5 @@ import { LoginUserDto } from "../dtos/auth/login-user.dto";
 
 export abstract class AuthRepository {
   abstract registerUser(userRegister: RegisterUserDto): Promise<UserEntity>;
-  abstract loginUser(loginUserDTO: LoginUserDto): Promise<any>;
+  abstract loginUser(loginUserDTO: LoginUserDto): Promise<UserEntity>;
 }

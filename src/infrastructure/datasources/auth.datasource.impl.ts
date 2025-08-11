@@ -44,7 +44,7 @@ export class AuthDataSourceImpl implements AuthDataSource {
     }
   }
 
-  async loginUser(loginUserDTO: LoginUserDto): Promise<any> {
+  async loginUser(loginUserDTO: LoginUserDto): Promise<UserEntity> {
     const { email, password } = loginUserDTO;
     try {
       const user = await UserModel.findOne({ email });
@@ -57,7 +57,9 @@ export class AuthDataSourceImpl implements AuthDataSource {
         console.log('Credentials do not match');
         throw CustomError.unauthorized('Credentials do not match');
       }
-      return user;
+
+      return UserMapper.userEntityFromObject(user);
+    
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
