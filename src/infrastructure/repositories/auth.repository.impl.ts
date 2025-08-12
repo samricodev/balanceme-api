@@ -18,11 +18,11 @@ export class AuthRepositoryImpl implements AuthRepository {
     return this.authDatasource.loginUser(loginUser);
   }
 
-  /* getMyProfile(): Promise<UserEntity> {
-    return this.authDatasource.getMyProfile();
+  getMyProfile(userId: string): Promise<UserEntity> {
+    return this.authDatasource.getMyProfile(userId);
   }
 
-  updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity> {
+  /*updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity> {
     return this.authDatasource.updateMyProfile(userId, userData);
   }
 

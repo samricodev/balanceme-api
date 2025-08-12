@@ -12,7 +12,8 @@ export class AuthRoutes {
     const authController = new AuthController(authRepository);
 
     router.post('/register', authController.registerUser);
-    router.post('/login', authController.loginUser);
+    router.post('/login/', authController.loginUser);
+    router.get('/profile/:id', [AuthMiddleware.validateJWT], authController.getMe);
     router.get('/users', [AuthMiddleware.validateJWT], authController.getUsers);
  
     return router;
