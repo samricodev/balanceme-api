@@ -1,8 +1,14 @@
 import { BcryptAdapter } from '../../config';
 import { UserModel } from '../../data/mongodb';
 import { UserMapper } from '../mappers/user.mapper';
-import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto';
-import { AuthDataSource, CustomError, RegisterUserDto, UserEntity } from '../../domain';
+import { 
+  AuthDataSource, 
+  CustomError, 
+  RegisterUserDto, 
+  LoginUserDto, 
+  UpdateUserDto, 
+  UserEntity 
+} from '../../domain';
 
 type HashFunction = (password: string) => string;
 type CompareFunction = (password: string, hashed: string) => boolean;
@@ -83,6 +89,41 @@ export class AuthDataSourceImpl implements AuthDataSource {
         throw error;
       }
       console.log('Error retrieving user profile');
+      throw CustomError.internalServerError();
+    }
+  }
+
+  async updateMyProfile(userId: string, updateUserDTO: UpdateUserDto): Promise<UserEntity> {
+    const { name, email, password } = updateUserDTO;
+    try {
+      const user = await UserModel.findOne({ _id: userId });
+      if (!user) {
+        console.log('User not found');
+        throw CustomError.notFound('User not found');
+      }
+
+      if (email && email !== user.email) {
+        const exists = await UserModel.findOne({ email });
+        if (exists) {
+          console.log('Email already in use');
+          throw CustomError.badRequest('Email already in use');
+        }
+      }
+
+      user.name = name || user.name;
+      user.email = email || user.email;
+      if (password) {
+        user.password = this.hashPassword(password);
+      }
+
+      const updatedUser = await user.save();
+      return UserMapper.userEntityFromObject(updatedUser);
+
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error updating user profile');
       throw CustomError.internalServerError();
     }
   }

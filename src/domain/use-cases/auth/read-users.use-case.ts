@@ -1,6 +1,6 @@
 import { AuthRepository, CustomError, UserEntity} from '../../';
 
-export class ReadUsersUseCase {
+export class ReadUsers {
   constructor(private readonly authRepository: AuthRepository) {}
 
   async execute(): Promise<UserEntity[]> {

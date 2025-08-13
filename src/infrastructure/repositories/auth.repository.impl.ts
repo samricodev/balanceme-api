@@ -3,7 +3,8 @@ import {
   AuthRepository, 
   RegisterUserDto, 
   UserEntity, 
-  LoginUserDto
+  LoginUserDto,
+  UpdateUserDto
 } from "../../domain";
 
 export class AuthRepositoryImpl implements AuthRepository {
@@ -22,9 +23,9 @@ export class AuthRepositoryImpl implements AuthRepository {
     return this.authDatasource.getMyProfile(userId);
   }
 
-  /*updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity> {
+  updateMyProfile(userId: string, userData: UpdateUserDto): Promise<UserEntity> {
     return this.authDatasource.updateMyProfile(userId, userData);
-  }*/
+  }
 
   deleteMyProfile(userId: string): Promise<UserEntity> {
     return this.authDatasource.deleteMyProfile(userId); 

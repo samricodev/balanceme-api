@@ -2,14 +2,17 @@ import { Request, Response } from "express";
 import {
   RegisterUserDto,
   LoginUserDto,
+  UpdateUserDto,
   AuthRepository,
   CustomError,
   RegisterUser,
   LoginUser,
-  DeleteUserUseCase
+  DeleteUser,
+  GetMe,
+  UpdateUser,
+  ReadUsers,
 } from "../../domain";
-import { ReadUsersUseCase } from "../../domain/use-cases/auth/read-users.use-case";
-import { GetMeUseCase } from "../../domain/use-cases/auth/get-me.use-case";
+
 
 export class AuthController {
 
@@ -57,10 +60,29 @@ export class AuthController {
       return res.status(400).json({ error: 'User ID is required' });
     }
 
-    new GetMeUseCase(this.authRepository)
+    new GetMe(this.authRepository)
       .execute(userId)
       .then(user => {
         res.status(200).json(user);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  updateMe = (req: Request, res: Response) => {
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    const [error, updateUserDTO] = UpdateUserDto.create(req.body);
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
+    new UpdateUser(this.authRepository)
+      .execute(userId, updateUserDTO!)
+      .then(userUpdated => {
+        res.status(200).json(userUpdated);
       })
       .catch(err => this.handleError(err, res));
   }
@@ -71,7 +93,7 @@ export class AuthController {
       return res.status(400).json({ error: 'User ID is required' });
     }
 
-    new DeleteUserUseCase(this.authRepository)
+    new DeleteUser(this.authRepository)
       .execute(userId)
       .then((userDeleted) => {
         res.status(200).json(userDeleted);
@@ -81,12 +103,12 @@ export class AuthController {
 
 
   getUsers = (req: Request, res: Response) => {
-    new ReadUsersUseCase(this.authRepository)
+    new ReadUsers(this.authRepository)
       .execute()
       .then(users => {
         res.status(200).json(users);
       })
       .catch(err => this.handleError(err, res));
   }
-
+  
 } 
