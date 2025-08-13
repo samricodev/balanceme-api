@@ -5,7 +5,8 @@ import {
   AuthRepository,
   CustomError,
   RegisterUser,
-  LoginUser
+  LoginUser,
+  DeleteUserUseCase
 } from "../../domain";
 import { ReadUsersUseCase } from "../../domain/use-cases/auth/read-users.use-case";
 import { GetMeUseCase } from "../../domain/use-cases/auth/get-me.use-case";
@@ -60,6 +61,20 @@ export class AuthController {
       .execute(userId)
       .then(user => {
         res.status(200).json(user);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  deleteMe = (req: Request, res: Response) => {
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    new DeleteUserUseCase(this.authRepository)
+      .execute(userId)
+      .then((userDeleted) => {
+        res.status(200).json(userDeleted);
       })
       .catch(err => this.handleError(err, res));
   }

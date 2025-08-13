@@ -87,6 +87,24 @@ export class AuthDataSourceImpl implements AuthDataSource {
     }
   }
 
+  async deleteMyProfile(userId: string): Promise<UserEntity> {
+    try {
+      const user = await UserModel.findOneAndDelete({ _id: userId });
+      if (!user) {
+        console.log('User not found');
+        throw CustomError.notFound('User not found');
+      }
+
+      return UserMapper.userEntityFromObject(user);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error deleting user profile');
+      throw CustomError.internalServerError();
+    }
+  }
+
   async readUsers(): Promise<UserEntity[]> {
     try {
       const users = await UserModel.find();
