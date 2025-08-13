@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 
 interface Options {
   port?: number,
@@ -23,6 +24,7 @@ export class Server {
   async start() {
     // Middleware
     this.app.use(express.json());
+    this.app.use(morgan('dev'));
     this.app.use(express.urlencoded({ extended: true }));
 
     // Set up routes
