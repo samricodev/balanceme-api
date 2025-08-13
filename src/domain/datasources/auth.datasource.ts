@@ -7,7 +7,7 @@ export abstract class AuthDataSource {
   abstract registerUser(registerUserDTO: RegisterUserDto): Promise<UserEntity>;
   abstract loginUser(loginUserDTO: LoginUserDto): Promise<UserEntity>;
   abstract getMyProfile(userId: string): Promise<UserEntity>;
-  /* abstract updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity>;
-  abstract deleteMyProfile(userId: string): Promise<void>; */
+  //abstract updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity>;
+  abstract deleteMyProfile(userId: string): Promise<UserEntity>;
   abstract readUsers(): Promise<UserEntity[]>;
 }

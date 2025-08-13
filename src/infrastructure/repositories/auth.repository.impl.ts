@@ -24,11 +24,11 @@ export class AuthRepositoryImpl implements AuthRepository {
 
   /*updateMyProfile(userId: string, userData: Partial<UserEntity>): Promise<UserEntity> {
     return this.authDatasource.updateMyProfile(userId, userData);
-  }
-
-  deleteMyProfile(userId: string): Promise<void> {
-    return this.authDatasource.deleteMyProfile(userId); 
   }*/
+
+  deleteMyProfile(userId: string): Promise<UserEntity> {
+    return this.authDatasource.deleteMyProfile(userId); 
+  }
 
   readUsers(): Promise<UserEntity[]> {
     return this.authDatasource.readUsers();
