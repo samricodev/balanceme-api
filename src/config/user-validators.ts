@@ -1,4 +1,4 @@
-export class Validators {
+export class userValidators {
 
   static get name() {
     return /^[a-zA-Z\s]{2,}$/; // At least 2 characters, only letters and spaces

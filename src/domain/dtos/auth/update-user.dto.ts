@@ -1,4 +1,4 @@
-import { Validators } from "../../../config";
+import { userValidators } from "../../../config";
 
 export class UpdateUserDto {
   private constructor(
@@ -15,15 +15,15 @@ export class UpdateUserDto {
       return ['At least one field must be provided'];
     }
 
-    if (name && !Validators.name.test(name)) {
+    if (name && !userValidators.name.test(name)) {
       return ['Invalid name format'];
     }
 
-    if (email && !Validators.email.test(email)) {
+    if (email && !userValidators.email.test(email)) {
       return ['Invalid email format'];
     }
 
-    if (password && !Validators.password.test(password)) {
+    if (password && !userValidators.password.test(password)) {
       return ['Invalid password format'];
     }
 
