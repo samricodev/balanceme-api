@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   img: {
     type: String,
   },
+  accounts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Account'
+  }],
   role: {
     type: [String],
     default: ['USER-ROLE'],
