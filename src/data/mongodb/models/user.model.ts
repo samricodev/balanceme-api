@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Account'
   }],
+  categories:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
   role: {
     type: [String],
     default: ['USER-ROLE'],
