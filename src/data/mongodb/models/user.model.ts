@@ -17,10 +17,22 @@ const userSchema = new mongoose.Schema({
   img: {
     type: String,
   },
+  accounts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Account'
+  }],
   role: {
     type: [String],
     default: ['USER-ROLE'],
     enum: ['USER-ROLE', 'ADMIN-ROLE']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
