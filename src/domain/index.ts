@@ -1,4 +1,3 @@
-import e from 'express';
 
 export * from './errors/custom.error';
 
@@ -24,5 +23,6 @@ export * from './use-cases/auth/delete-user.use-case';
 export * from './use-cases/auth/register-user.use-case';
 
 export * from './use-cases/account/get-account.use-case';
+export * from './use-cases/account/get-accounts.use-case';
 export * from './use-cases/account/delete-account.use-case';
 export * from './use-cases/account/register-account.use-case';

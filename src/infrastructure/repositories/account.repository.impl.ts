@@ -11,6 +11,10 @@ export class AccountRepositoryImpl implements AccountRepository {
     return this.accountDataSource.registerAccount(accountRegister);
   }
 
+  getAccounts(userId: string): Promise<AccountEntity[]> {
+    return this.accountDataSource.getAccounts(userId);
+  }
+
   getAccountById(id: string): Promise<AccountEntity> {
     return this,this.accountDataSource.getAccountById(id);
   }

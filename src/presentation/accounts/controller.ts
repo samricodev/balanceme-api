@@ -5,7 +5,8 @@ import {
   RegisterAccountDto,
   RegisterAccount,
   GetAccount,
-  DeleteAccount
+  DeleteAccount,
+  GetAccounts
 } from '../../domain';
 
 export class AccountController {
@@ -28,6 +29,23 @@ export class AccountController {
       .execute(accountRegisterDTO!)
       .then(data => {
         res.status(201).json(data);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  getAccounts = (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    new GetAccounts(this.accountRepository)
+      .execute(userId)
+      .then(accounts => {
+        if (accounts.length === 0) {
+          return res.status(404).json({ error: 'No accounts found for this user' });
+        }
+        res.status(200).json(accounts);
       })
       .catch(err => this.handleError(err, res));
   }
