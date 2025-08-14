@@ -25,6 +25,10 @@ const accountSchema = new mongoose.Schema({
     required: [true, 'Balance is required'],
     default: 0
   },
+  transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
   createdAt: {
     type: Date,
     default: Date.now
