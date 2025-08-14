@@ -1,6 +1,6 @@
-import { RegisterCategoryDto, CategoryEntity } from '../';
+import { CreateCategoryDto, CategoryEntity } from '../';
 
 export abstract class CategoryRepository {
-  abstract createCategory(categoryData: RegisterCategoryDto): Promise<CategoryEntity>;
+  abstract createCategory(categoryData: CreateCategoryDto): Promise<CategoryEntity>;
   abstract getCategories(userId: string): Promise<CategoryEntity[]>;
 }

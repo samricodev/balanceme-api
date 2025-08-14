@@ -1,6 +1,6 @@
-import { RegisterCategoryDto, CategoryEntity } from "../";
+import { CreateCategoryDto, CategoryEntity } from "../";
 
 export abstract class CategoryDataSource {
-  abstract createCategory(category: RegisterCategoryDto): Promise<CategoryEntity>;
+  abstract createCategory(category: CreateCategoryDto): Promise<CategoryEntity>;
   abstract getCategories(userId: string): Promise<CategoryEntity[]>;
 }

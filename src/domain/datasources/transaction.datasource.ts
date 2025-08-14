@@ -1,6 +1,6 @@
-import { RegisterTransactionDto, TransactionEntity } from '../';
+import { CreateTransactionDto, TransactionEntity } from '../';
 
 export abstract class TransactionDataSource {
-  abstract createTransaction(transactionDTO: RegisterTransactionDto): Promise<TransactionEntity>;
+  abstract createTransaction(transactionDTO: CreateTransactionDto): Promise<TransactionEntity>;
   abstract getTransactions(transactionId: string): Promise<TransactionEntity[]>;
 }  
