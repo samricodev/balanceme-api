@@ -1,4 +1,4 @@
-import { AccountModel } from '../../data/mongodb/';
+import { AccountModel, UserModel } from '../../data/mongodb/';
 import {
   AccountDataSource,
   RegisterAccountDto,
@@ -11,11 +11,11 @@ export class AccountDataSourceImpl implements AccountDataSource {
   constructor() { }
 
   async registerAccount(registerAccountDTO: RegisterAccountDto): Promise<AccountEntity> {
-    const { 
-      name, 
-      userId, 
-      type, 
-      currency, 
+    const {
+      name,
+      userId,
+      type,
+      currency,
       balance,
       createdAt,
       updatedAt
@@ -43,6 +43,12 @@ export class AccountDataSourceImpl implements AccountDataSource {
         throw CustomError.internalServerError();
       }
 
+      if (userId) {
+        await UserModel.findByIdAndUpdate(userId, {
+          $push: { accounts: account._id }
+        });
+      }
+
       return AccountMapper.accountEntityFromObject(account);
 
     } catch (error) {
@@ -51,7 +57,29 @@ export class AccountDataSourceImpl implements AccountDataSource {
       }
       throw CustomError.internalServerError();
     }
-   
+
+  }
+
+  async getAccounts(userId: string): Promise<AccountEntity[]> {
+    if (!userId) {
+      console.log('User ID is required');
+      throw CustomError.badRequest('User ID is required');
+    }
+
+    try {
+      const accounts = await AccountModel.find({ userId }).populate('userId');
+      if (!accounts || accounts.length === 0) {
+        console.log('No accounts found for this user');
+        throw CustomError.notFound('No accounts found for this user');
+      }
+      return accounts.map(account => AccountMapper.accountEntityFromObject(account));
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error retrieving accounts');
+      throw CustomError.internalServerError();
+    }
   }
 
   async getAccountById(id: string): Promise<AccountEntity> {
@@ -73,7 +101,29 @@ export class AccountDataSourceImpl implements AccountDataSource {
       }
       console.log('Error retrieving account');
       throw CustomError.internalServerError();
-    } 
+    }
+  }
+
+  async deleteAccount(id: string): Promise<AccountEntity> {
+    if (!id) {
+      console.log('Account ID is required');
+      throw CustomError.badRequest('Account ID is required');
+    }
+
+    try {
+      const account = await AccountModel.findByIdAndDelete(id);
+      if (!account) {
+        console.log('Account not found');
+        throw CustomError.notFound('Account not found');
+      }
+      return AccountMapper.accountEntityFromObject(account);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error deleting account');
+      throw CustomError.internalServerError();
+    }
   }
 
 }

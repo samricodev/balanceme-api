@@ -12,7 +12,9 @@ export class AccountRoutes {
     const accountController = new AccountController(accountRepository);
 
     router.post('/register',[AuthMiddleware.validateJWT], accountController.registerAccount);
+    router.get('/:userId', [AuthMiddleware.validateJWT], accountController.getAccounts);
     router.get('/:id', [AuthMiddleware.validateJWT], accountController.getAccountById);
+    router.delete('/:id', [AuthMiddleware.validateJWT], accountController.deleteAccount);
 
     return router;
   }

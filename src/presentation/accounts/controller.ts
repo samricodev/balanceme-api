@@ -4,7 +4,9 @@ import {
   CustomError,
   RegisterAccountDto,
   RegisterAccount,
-  GetAccount
+  GetAccount,
+  DeleteAccount,
+  GetAccounts
 } from '../../domain';
 
 export class AccountController {
@@ -31,6 +33,23 @@ export class AccountController {
       .catch(err => this.handleError(err, res));
   }
 
+  getAccounts = (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    new GetAccounts(this.accountRepository)
+      .execute(userId)
+      .then(accounts => {
+        if (accounts.length === 0) {
+          return res.status(404).json({ error: 'No accounts found for this user' });
+        }
+        res.status(200).json(accounts);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
   getAccountById = (req: Request, res: Response) => {
     const id = req.params.id;
     if (!id) {
@@ -47,4 +66,21 @@ export class AccountController {
       })
       .catch(err => this.handleError(err, res));
   }
+
+  deleteAccount = (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Account ID is required' });
+    }
+
+    new DeleteAccount(this.accountRepository)
+      .execute(id)
+      .then(deletedAccount => {
+        if (!deletedAccount) {
+          return res.status(404).json({ error: 'Account not found' });
+        }
+        res.status(200).json(deletedAccount);
+      })
+      .catch(err => this.handleError(err, res));
+    }
 }
