@@ -14,4 +14,8 @@ export class AccountRepositoryImpl implements AccountRepository {
   getAccountById(id: string): Promise<AccountEntity> {
     return this,this.accountDataSource.getAccountById(id);
   }
+
+  deleteAccount(id: string): Promise<AccountEntity> {
+    return this.accountDataSource.deleteAccount(id);
+  }
 }

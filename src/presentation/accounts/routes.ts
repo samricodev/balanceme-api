@@ -13,6 +13,7 @@ export class AccountRoutes {
 
     router.post('/register',[AuthMiddleware.validateJWT], accountController.registerAccount);
     router.get('/:id', [AuthMiddleware.validateJWT], accountController.getAccountById);
+    router.delete('/:id', [AuthMiddleware.validateJWT], accountController.deleteAccount);
 
     return router;
   }
