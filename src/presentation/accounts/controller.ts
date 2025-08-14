@@ -3,7 +3,8 @@ import {
   AccountRepository,
   CustomError,
   RegisterAccountDto,
-  RegisterAccount
+  RegisterAccount,
+  GetAccount
 } from '../../domain';
 
 export class AccountController {
@@ -26,6 +27,23 @@ export class AccountController {
       .execute(accountRegisterDTO!)
       .then(data => {
         res.status(201).json(data);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  getAccountById = (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Account ID is required' });
+    }
+
+    new GetAccount(this.accountRepository)
+      .execute(id)
+      .then(account => {
+        if (!account) {
+          return res.status(404).json({ error: 'Account not found' });
+        }
+        res.status(200).json(account);
       })
       .catch(err => this.handleError(err, res));
   }

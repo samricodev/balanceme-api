@@ -54,4 +54,26 @@ export class AccountDataSourceImpl implements AccountDataSource {
    
   }
 
+  async getAccountById(id: string): Promise<AccountEntity> {
+    if (!id) {
+      console.log('Account ID is required');
+      throw CustomError.badRequest('Account ID is required');
+    }
+
+    try {
+      const account = await AccountModel.findById(id).populate('userId');
+      if (!account) {
+        console.log('Account not found');
+        throw CustomError.notFound('Account not found');
+      }
+      return AccountMapper.accountEntityFromObject(account);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      console.log('Error retrieving account');
+      throw CustomError.internalServerError();
+    } 
+  }
+
 }
