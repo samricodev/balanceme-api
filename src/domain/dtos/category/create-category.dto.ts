@@ -15,8 +15,8 @@ export class CreateCategoryDto {
     if (!name) return ['Missing name'];
     if (!type) return ['Missing type'];
 
-    if (CategoryValidators.categoryName.test(name)) return ['Invalid name'];
-    if (CategoryValidators.categoryType.test(type)) return ['Invalid type'];
+    if (!CategoryValidators.categoryName.test(name)) return ['Invalid name'];
+    if (!CategoryValidators.categoryType.test(type)) return ['Invalid type'];
 
 
     return [
