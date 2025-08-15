@@ -1,4 +1,4 @@
-import { TransactionModel } from '../../data/mongodb';
+import { AccountModel, TransactionModel } from '../../data/mongodb';
 import {
   TransactionDataSource,
   CreateTransactionDto,
@@ -35,6 +35,12 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
         throw CustomError.internalServerError();
       }
 
+      if ( accountId) {
+        await AccountModel.findByIdAndUpdate(accountId, {
+          $push: { transactions: transaction._id }
+        });
+      }
+
       return TransactionMapper.transactionEntityFromObject(transaction);
 
     } catch (error) {
@@ -47,6 +53,11 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
 
   async getTransactions(userId: string): Promise<TransactionEntity[]> {
     const transactions = await TransactionModel.find({ userId });
+
+    if (!transactions) {
+      console.log('Error fetching transactions');
+      throw CustomError.internalServerError();
+    }
 
     return transactions.map(transaction => TransactionMapper.transactionEntityFromObject(transaction));
   }

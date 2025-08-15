@@ -31,8 +31,8 @@ export class AccountMapper {
 
     return new AccountEntity(
       _id || id,
-      name,
       userId,
+      name,
       type,
       currency,
       balance,
