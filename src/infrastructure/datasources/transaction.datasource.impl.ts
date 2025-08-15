@@ -35,7 +35,19 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
         throw CustomError.internalServerError();
       }
 
-      if ( accountId) {
+      if (type === 'expense' && accountId) {
+        await AccountModel.findByIdAndUpdate(accountId, {
+          $inc: { balance: - amount }
+        });
+      }
+
+      if (type === 'income' && accountId) {
+        await AccountModel.findByIdAndUpdate(accountId, {
+          $inc: { balance: + amount }
+        });
+      }
+
+      if (accountId) {
         await AccountModel.findByIdAndUpdate(accountId, {
           $push: { transactions: transaction._id }
         });
