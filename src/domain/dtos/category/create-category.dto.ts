@@ -2,8 +2,8 @@ import { CategoryValidators } from "../../../config";
 
 export class CreateCategoryDto {
   constructor(
-    public userId: string,
     public name: string,
+    public userId: string,
     public type: string,
     public description?: string
   ) { }
@@ -22,8 +22,8 @@ export class CreateCategoryDto {
     return [
       '',
       new CreateCategoryDto(
-        userId,
         name,
+        userId,
         type,
         description
       )
