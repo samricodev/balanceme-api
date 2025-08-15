@@ -31,14 +31,22 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
       });
 
       if (!transaction) {
-        console.log('Error creating transaction');
+        console.error('Error creando transacción');
         throw CustomError.internalServerError();
       }
 
-      if ( accountId) {
-        await AccountModel.findByIdAndUpdate(accountId, {
+      const increment = type === 'expense' ? -amount : amount;
+      const updatedAccount = await AccountModel.findOneAndUpdate(
+        { _id: accountId, userId },
+        {
+          $inc: { balance: increment },
           $push: { transactions: transaction._id }
-        });
+        },
+        { new: true }
+      );
+
+      if (!updatedAccount) {
+        throw CustomError.badRequest("Account not found after transaction");
       }
 
       return TransactionMapper.transactionEntityFromObject(transaction);
@@ -50,6 +58,7 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
       throw CustomError.internalServerError();
     }
   }
+
 
   async getTransactions(userId: string): Promise<TransactionEntity[]> {
     const transactions = await TransactionModel.find({ userId });

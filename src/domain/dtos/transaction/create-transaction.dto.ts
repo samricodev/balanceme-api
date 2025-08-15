@@ -26,9 +26,9 @@ export class CreateTransactionDto {
     return [
       '',
       new CreateTransactionDto(
+        userId,
         accountId,
         categoryId,
-        userId,
         amount,
         type,
         note, 
