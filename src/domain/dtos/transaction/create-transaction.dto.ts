@@ -2,14 +2,13 @@ import { TransactionValidators } from "../../../config";
 
 export class CreateTransactionDto {
   constructor(
+    public userId: string,
     public accountId: string,
     public categoryId: string,
-    public userId: string,
     public amount: number,
     public type: string,
     public note: string,
-    public createdAt: Date = new Date(),
-    public updatedAt: Date = new Date()
+    public date: Date,
   ) { }
 
   static create(object: { [key: string]: any; }): [string?, CreateTransactionDto?] {
@@ -32,7 +31,8 @@ export class CreateTransactionDto {
         userId,
         amount,
         type,
-        note,
+        note, 
+        new Date()
       )
     ];
   }

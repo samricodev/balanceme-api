@@ -7,6 +7,6 @@ export class TransactionEntity {
     public amount: number,
     public type: string,
     public note: string,
-    public date: Date = new Date()
+    public date: Date
   ) { }
 }
