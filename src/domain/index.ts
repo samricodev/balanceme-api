@@ -38,6 +38,7 @@ export * from './use-cases/account/get-accounts.use-case';
 export * from './use-cases/account/delete-account.use-case';
 export * from './use-cases/account/register-account.use-case';
 
+export * from './use-cases/category/get-categories.use-case';
 export * from './use-cases/category/create-category.use-case';
 
 export * from './use-cases/transaction/create-transaction.use-case';

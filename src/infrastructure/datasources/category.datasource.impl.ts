@@ -1,0 +1,55 @@
+import { CategoryMapper } from '../';
+import { CategoryModel } from '../../data/mongodb';
+import { 
+  CategoryDataSource, 
+  CategoryEntity, 
+  CreateCategoryDto, 
+  CustomError 
+} from '../../domain';
+
+export class CategoryDataSourceImpl implements CategoryDataSource {
+  async createCategory(createCategoryDTO: CreateCategoryDto): Promise<CategoryEntity> {
+    const {
+      name,
+      userId,
+      type,
+      description
+    } = createCategoryDTO;
+
+    try {
+      const existingCategory = await CategoryModel.findOne({ name, userId });
+      if (existingCategory) {
+        throw CustomError.badRequest('Category with this name already exists for the user');
+      }
+
+      const category = await CategoryModel.create({
+        userId,
+        name,
+        type,
+        description
+      });
+
+      if (!category) {
+        console.log('Error creating category');
+        throw CustomError.internalServerError();
+      }
+
+      return CategoryMapper.categoryEntityFromObject(category);
+
+    } catch (error) {
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServerError();
+    }
+  }
+
+  async getCategories(userId: string): Promise<CategoryEntity[]> {
+    try {
+      const categories = await CategoryModel.find({ userId });
+      return categories.map(CategoryMapper.categoryEntityFromObject);
+    } catch (error) {
+      throw CustomError.internalServerError();
+    }
+  }
+}
