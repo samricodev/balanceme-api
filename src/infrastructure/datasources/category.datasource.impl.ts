@@ -1,11 +1,11 @@
-import { CategoryMapper } from '../';
-import { CategoryModel } from '../../data/mongodb';
 import { 
   CategoryDataSource, 
   CategoryEntity, 
   CreateCategoryDto, 
   CustomError 
 } from '../../domain';
+import { CategoryMapper } from '../';
+import { CategoryModel, UserModel } from '../../data/mongodb';
 
 export class CategoryDataSourceImpl implements CategoryDataSource {
   async createCategory(createCategoryDTO: CreateCategoryDto): Promise<CategoryEntity> {
@@ -32,6 +32,12 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
       if (!category) {
         console.log('Error creating category');
         throw CustomError.internalServerError();
+      }
+
+      if (userId) {
+        await UserModel.findByIdAndUpdate(userId, {
+          $push: { categories: category._id }
+        });
       }
 
       return CategoryMapper.categoryEntityFromObject(category);
