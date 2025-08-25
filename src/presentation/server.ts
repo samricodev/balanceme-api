@@ -14,7 +14,7 @@ export class Server {
 
   constructor(options: Options) {
     const {
-      port = 3000,
+      port = 8080,
       routes
     } = options;
 
