@@ -17,6 +17,17 @@ const categorySchema = new mongoose.Schema({
   },
   description: {
     type: String
+  },
+  icon: {
+    type: String
+  },
+  transactionCount: {
+    type: Number,
+    default: 0
+  },
+  totalAmount: {
+    type: Number,
+    default: 0
   }
 });
 
