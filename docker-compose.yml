@@ -10,3 +10,8 @@ services:
       - "27017:27017"
     volumes:
       - ./balanceme-db-data:/data/db
+    networks:
+      - balanceme-network
+networks:
+  balanceme-network:
+    driver: bridge

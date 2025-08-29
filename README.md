@@ -44,7 +44,7 @@ La API de BalanceMe ofrece los siguientes endpoints principales:
    Crea un archivo `.env` en la raíz del proyecto con la siguiente estructura. Asegúrate de reemplazar los valores con tu propia configuración:
 
    ```env
-   PORT=3000
+   PORT=8080
    MONGODB_URI=mongodb://localhost:27017/balanceme
    JWT_SECRET=tu_secreto_jwt_muy_seguro
    ```

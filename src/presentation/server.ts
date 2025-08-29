@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 
 interface Options {
   port?: number,
@@ -13,7 +14,7 @@ export class Server {
 
   constructor(options: Options) {
     const {
-      port = 3000,
+      port = 8080,
       routes
     } = options;
 
@@ -26,6 +27,7 @@ export class Server {
     this.app.use(express.json());
     this.app.use(morgan('dev'));
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cors());
 
     // Set up routes
     this.app.get('/ping', (req, res) => {
