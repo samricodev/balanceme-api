@@ -5,7 +5,7 @@ export class accountValidators {
   }
 
   static get accountType() {
-    return /^(bank|cash|investment)$/; // Must be one of the predefined types
+    return /^(credit|checking|savings|investment)$/; // Must be one of the predefined types
   }
 
   static get currency() {

@@ -13,7 +13,7 @@ const accountSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, 'Account type is required'],
-    enum: ['cash', 'bank', 'investment']
+    enum: ['savings', 'credit', 'checking', 'investment']
   },
   currency: {
     type: String,
