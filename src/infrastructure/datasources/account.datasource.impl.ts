@@ -67,11 +67,7 @@ export class AccountDataSourceImpl implements AccountDataSource {
     }
 
     try {
-      const accounts = await AccountModel.find({ userId }).populate('userId');
-      if (!accounts || accounts.length === 0) {
-        console.log('No accounts found for this user');
-        throw CustomError.notFound('No accounts found for this user');
-      }
+      const accounts = await AccountModel.find({ userId });
       return accounts.map(account => AccountMapper.accountEntityFromObject(account));
     } catch (error) {
       if (error instanceof CustomError) {

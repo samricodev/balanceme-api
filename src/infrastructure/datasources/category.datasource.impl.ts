@@ -53,7 +53,7 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
   async getCategories(userId: string): Promise<CategoryEntity[]> {
     try {
       const categories = await CategoryModel.find({ userId });
-      return categories.map(CategoryMapper.categoryEntityFromObject);
+      return categories.map((category) => CategoryMapper.categoryEntityFromObject(category));
     } catch (error) {
       throw CustomError.internalServerError();
     }
