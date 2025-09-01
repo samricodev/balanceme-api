@@ -6,18 +6,20 @@ export class CreateCategoryDto {
     public name: string,
     public type: string,
     public icon: string,
+    public color: string,
     public transactionCount: number,
     public totalAmount: number,
     public description?: string
   ) { }
 
   static create(object: { [key: string]: any; }): [string?, CreateCategoryDto?] {
-    const { userId, name, type, icon, transactionCount, totalAmount, description } = object;
+    const { userId, name, type, icon, color, transactionCount, totalAmount, description } = object;
 
     if (!userId) return ['Missing userId'];
     if (!name) return ['Missing name'];
     if (!type) return ['Missing type'];
     if (!icon) return ['Missing icon'];
+    if (!color) return ['Missing color'];
     if (transactionCount === undefined || transactionCount === null) return ['Missing transactionCount'];
     if (totalAmount === undefined || totalAmount === null) return ['Missing totalAmount'];
 
@@ -33,6 +35,7 @@ export class CreateCategoryDto {
         name,
         type,
         icon,
+        color,
         transactionCount,
         totalAmount,
         description

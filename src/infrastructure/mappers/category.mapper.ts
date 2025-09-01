@@ -2,7 +2,7 @@ import { CategoryEntity } from '../../domain';
 
 export class CategoryMapper {
   static categoryEntityFromObject(object: { [key: string]: any }): CategoryEntity {
-    const { _id, id, name, userId, type, description, icon, transactionCount, totalAmount } = object;
+    const { _id, id, name, userId, type, description, icon, color, transactionCount, totalAmount } = object;
 
     if (!id && !_id) {
       throw new Error('Invalid category object: missing id or _id');
@@ -24,6 +24,10 @@ export class CategoryMapper {
       throw new Error('Invalid category object: missing icon');
     }
 
+    if (!color) {
+      throw new Error('Invalid category object: missing color');
+    }
+
     if (transactionCount === undefined || transactionCount === null) {
       throw new Error('Invalid category object: missing transactionCount');
     }
@@ -37,6 +41,7 @@ export class CategoryMapper {
       name,
       type,
       icon,
+      color,
       transactionCount,
       totalAmount,
       description

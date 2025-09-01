@@ -15,6 +15,7 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
       type,
       description,
       icon,
+      color,
       transactionCount,
       totalAmount
     } = createCategoryDTO;
@@ -31,6 +32,7 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
         type,
         description,
         icon,
+        color,
         transactionCount,
         totalAmount
       });

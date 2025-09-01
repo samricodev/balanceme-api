@@ -21,6 +21,9 @@ const categorySchema = new mongoose.Schema({
   icon: {
     type: String
   },
+  color: {
+    type: String
+  },
   transactionCount: {
     type: Number,
     default: 0

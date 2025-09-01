@@ -5,6 +5,7 @@ export class CategoryEntity {
     public name: string,
     public type: string,
     public icon: string,
+    public color: string,
     public transactionCount: number,
     public totalAmount: number,
     public description?: string,
