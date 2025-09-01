@@ -13,7 +13,11 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
       name,
       userId,
       type,
-      description
+      description,
+      icon,
+      color,
+      transactionCount,
+      totalAmount
     } = createCategoryDTO;
 
     try {
@@ -26,7 +30,11 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
         userId,
         name,
         type,
-        description
+        description,
+        icon,
+        color,
+        transactionCount,
+        totalAmount
       });
 
       if (!category) {

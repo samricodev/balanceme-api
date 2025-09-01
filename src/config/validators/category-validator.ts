@@ -7,4 +7,12 @@ export class CategoryValidators {
   static get categoryType() {
     return /^(income|expense|Income|Expense)$/i; // Only 'income' or 'expense', case insensitive
   }
+
+  static get transactionCount() {
+    return /^\d*$/; // Must be a number includes 0
+  }
+
+  static get totalAmount() {
+    return /^-?\d+(\.\d{1,2})?$/; // Numeric value, can be negative, up to 2 decimal places
+  }
 }
