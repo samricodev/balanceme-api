@@ -2,8 +2,8 @@ import { CategoryValidators } from "../../../config";
 
 export class CreateCategoryDto {
   constructor(
-    public name: string,
     public userId: string,
+    public name: string,
     public type: string,
     public icon: string,
     public transactionCount: number,
@@ -18,8 +18,8 @@ export class CreateCategoryDto {
     if (!name) return ['Missing name'];
     if (!type) return ['Missing type'];
     if (!icon) return ['Missing icon'];
-    if (!transactionCount) return ['Missing transactionCount'];
-    if (!totalAmount) return ['Missing totalAmount'];
+    if (transactionCount === undefined || transactionCount === null) return ['Missing transactionCount'];
+    if (totalAmount === undefined || totalAmount === null) return ['Missing totalAmount'];
 
     if (!CategoryValidators.categoryName.test(name)) return ['Invalid name'];
     if (!CategoryValidators.categoryType.test(type)) return ['Invalid type'];

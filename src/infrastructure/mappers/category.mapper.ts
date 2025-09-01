@@ -23,22 +23,23 @@ export class CategoryMapper {
     if (!icon) {
       throw new Error('Invalid category object: missing icon');
     }
-    if (!transactionCount) {
+
+    if (transactionCount === undefined || transactionCount === null) {
       throw new Error('Invalid category object: missing transactionCount');
     }
-    if (!totalAmount) {
+    if (totalAmount === undefined || totalAmount === null) {
       throw new Error('Invalid category object: missing totalAmount');
     }
 
     return new CategoryEntity(
       _id || id,
-      name,
       userId,
+      name,
       type,
-      description,
       icon,
       transactionCount,
-      totalAmount
+      totalAmount,
+      description
     );
   }
 }
