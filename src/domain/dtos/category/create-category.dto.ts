@@ -23,15 +23,14 @@ export class CreateCategoryDto {
 
     if (!CategoryValidators.categoryName.test(name)) return ['Invalid name'];
     if (!CategoryValidators.categoryType.test(type)) return ['Invalid type'];
-    if (!CategoryValidators.icon.test(icon)) return ['Invalid icon'];
     if (!CategoryValidators.transactionCount.test(transactionCount.toString())) return ['Invalid transactionCount'];
     if (!CategoryValidators.totalAmount.test(totalAmount.toString())) return ['Invalid totalAmount'];
 
     return [
       '',
       new CreateCategoryDto(
-        name,
         userId,
+        name,
         type,
         icon,
         transactionCount,

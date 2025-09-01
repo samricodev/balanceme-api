@@ -8,10 +8,6 @@ export class CategoryValidators {
     return /^(income|expense|Income|Expense)$/i; // Only 'income' or 'expense', case insensitive
   }
 
-  static get icon() {
-    return /^[a-zA-Z0-9\s]{2,}$/; // At least 2 characters, only letters, numbers and spaces
-  }
-
   static get transactionCount() {
     return /^\d*$/; // Must be a number includes 0
   }
