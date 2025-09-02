@@ -37,7 +37,7 @@ export class TransactionMapper {
       amount,
       type,
       note,
-      new Date(date)
+      date
     );
   }
 }
