@@ -5,7 +5,7 @@ export class CategoryValidators {
   }
 
   static get categoryType() {
-    return /^(income|expense|Income|Expense)$/i; // Only 'income' or 'expense', case insensitive
+    return /^(income|expense|Income|Expense|saving|Saving|investment|Investment)$/i; // Only 'income', 'expense', 'saving', 'investment', case insensitive
   }
 
   static get transactionCount() {
