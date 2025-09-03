@@ -1,7 +1,7 @@
 
 export class TransactionValidators {
   static get transactionType(){
-    return /^(income|expense|transfer)$/; // Only 'income', 'expense', or 'transfer'
+    return /^(income|expense|saving|investment)$/; // Only 'income', 'expense', 'saving', or 'investment'
   }
 
   static get amount() {

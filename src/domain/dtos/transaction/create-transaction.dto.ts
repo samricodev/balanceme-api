@@ -12,12 +12,13 @@ export class CreateTransactionDto {
   ) { }
 
   static create(object: { [key: string]: any; }): [string?, CreateTransactionDto?] {
-    const { accountId, userId, categoryId, amount, type, note } = object;
+    const { accountId, userId, categoryId, amount, type, note, date } = object;
 
     if (!accountId) return ['Missing accountId'];
     if (typeof amount !== 'number') return ['Invalid amount'];
     if (!type) return ['Missing type'];
     if (!note) return ['Missing description'];
+    if (!date) return ['Missing date'];
 
     if (!TransactionValidators.transactionType.test(type)) return ['Invalid transaction type'];
     if (!TransactionValidators.amount.test(amount.toString())) return ['Invalid amount format'];
@@ -31,8 +32,8 @@ export class CreateTransactionDto {
         categoryId,
         amount,
         type,
-        note, 
-        new Date()
+        note,
+        date
       )
     ];
   }
