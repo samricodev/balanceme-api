@@ -1,10 +1,16 @@
-import { AccountModel, TransactionModel } from '../../data/mongodb';
+import { 
+  AccountModel, 
+  TransactionModel, 
+  CategoryModel 
+} from '../../data/mongodb';
+
 import {
   TransactionDataSource,
   CreateTransactionDto,
   TransactionEntity,
   CustomError
 } from '../../domain';
+
 import { TransactionMapper } from '../mappers/transaction.mapper';
 
 export class TransactionDataSourceImpl implements TransactionDataSource {
@@ -47,6 +53,18 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
 
       if (!updatedAccount) {
         throw CustomError.badRequest("Account not found after transaction");
+      }
+
+      const updatedCategory = await CategoryModel.findOneAndUpdate(
+        { _id: categoryId, userId },
+        {
+          $inc: { totalAmount: increment, transactionCount: 1 }
+        },
+        { new: true }
+      );
+
+      if (!updatedCategory) {
+        throw CustomError.badRequest("Category not found after transaction");
       }
 
       return TransactionMapper.transactionEntityFromObject(transaction);
