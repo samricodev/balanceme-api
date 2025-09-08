@@ -30,6 +30,18 @@ const userSchema = new mongoose.Schema({
     default: ['USER-ROLE'],
     enum: ['USER-ROLE', 'ADMIN-ROLE']
   },
+  enableNotifications: {
+    type: Boolean,
+    default: true
+  },
+  enable2FA: {
+    type: Boolean,
+    default: false
+  },
+  automaticLimits: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
