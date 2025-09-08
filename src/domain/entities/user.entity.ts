@@ -6,5 +6,8 @@ export class UserEntity {
     public password: string,
     public role: string[],
     public image?: string ,
+    public enableNotifications?: boolean,
+    public enable2FA?: boolean,
+    public automaticLimits?: boolean,
   ) {}
 }
