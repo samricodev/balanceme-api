@@ -94,7 +94,7 @@ export class AuthDataSourceImpl implements AuthDataSource {
   }
 
   async updateMyProfile(userId: string, updateUserDTO: UpdateUserDto): Promise<UserEntity> {
-    const { name, email, password } = updateUserDTO;
+    const { name, email, password, enableNotifications, enable2FA, automaticLimits } = updateUserDTO;
     try {
       const user = await UserModel.findOne({ _id: userId });
       if (!user) {
@@ -112,6 +112,11 @@ export class AuthDataSourceImpl implements AuthDataSource {
 
       user.name = name || user.name;
       user.email = email || user.email;
+      user.enableNotifications = enableNotifications !== undefined ? enableNotifications : user.enableNotifications;
+      user.enable2FA = enable2FA !== undefined ? enable2FA : user.enable2FA;
+      user.automaticLimits = automaticLimits !== undefined ? automaticLimits : user.automaticLimits;
+      user.updatedAt = new Date();
+      
       if (password) {
         user.password = this.hashPassword(password);
       }

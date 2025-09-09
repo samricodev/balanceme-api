@@ -4,14 +4,17 @@ export class UpdateUserDto {
   private constructor(
     public name?: string,
     public email?: string,
-    public password?: string
+    public password?: string,
+    public enableNotifications?: boolean,
+    public enable2FA?: boolean,
+    public automaticLimits?: boolean
   ) { }
 
   static create(object: { [key: string]: any; }): [string?, UpdateUserDto?] {
 
-    const { name, email, password } = object;
+    const { name, email, password, enableNotifications, enable2FA, automaticLimits } = object;
 
-    if (!name && !email && !password) {
+    if (!name && !email && !password && enableNotifications === undefined && enable2FA === undefined && automaticLimits === undefined) {
       return ['At least one field must be provided'];
     }
 
@@ -32,7 +35,10 @@ export class UpdateUserDto {
       new UpdateUserDto(
         name,
         email,
-        password
+        password,
+        enableNotifications,
+        enable2FA,
+        automaticLimits
       )
     ];
   }
