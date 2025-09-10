@@ -6,11 +6,12 @@ export * from './entities/account.entity';
 export * from './entities/category.entity';
 export * from './entities/transaction.entity';
 
+export * from './dtos/auth/register-user.dto';
 export * from './dtos/auth/login-user.dto';
 export * from './dtos/auth/update-user.dto';
 
-export * from './dtos/auth/register-user.dto';
 export * from './dtos/account/register-account.dto';
+export * from './dtos/account/update-account.dto';
 
 export * from './dtos/category/create-category.dto';
 
@@ -36,6 +37,7 @@ export * from './use-cases/auth/register-user.use-case';
 export * from './use-cases/account/get-account.use-case';
 export * from './use-cases/account/get-accounts.use-case';
 export * from './use-cases/account/delete-account.use-case';
+export * from './use-cases/account/update-account.use-case';
 export * from './use-cases/account/register-account.use-case';
 
 export * from './use-cases/category/get-categories.use-case';

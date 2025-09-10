@@ -22,12 +22,6 @@ export class AccountMapper {
     if (balance === undefined || balance === null) {
       throw new Error('Invalid account object: missing balance');
     }
-    if (!createdAt) {
-      throw new Error('Invalid account object: missing createdAt');
-    }
-    if (!updatedAt) {
-      throw new Error('Invalid account object: missing updatedAt');
-    }
 
     return new AccountEntity(
       _id || id,
