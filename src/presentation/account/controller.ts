@@ -3,8 +3,10 @@ import {
   AccountRepository,
   CustomError,
   RegisterAccountDto,
+  UpdateAccountDto,
   RegisterAccount,
   GetAccount,
+  UpdateAccount,
   DeleteAccount,
   GetAccounts
 } from '../../domain';
@@ -60,6 +62,26 @@ export class AccountController {
           return res.status(404).json({ error: 'Account not found' });
         }
         res.status(200).json(account);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  updateAccount = (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Account ID is required' });
+    }
+
+    const [error, updateAccountDTO] = UpdateAccountDto.create(req.body);
+    if (error) return res.status(400).json({ error });
+
+    new UpdateAccount(this.accountRepository)
+      .execute(id, updateAccountDTO!)
+      .then(updatedAccount => {
+        if (!updatedAccount) {
+          return res.status(404).json({ error: 'Account not found' });
+        }
+        res.status(200).json(updatedAccount);
       })
       .catch(err => this.handleError(err, res));
   }

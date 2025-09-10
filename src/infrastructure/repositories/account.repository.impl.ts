@@ -19,6 +19,10 @@ export class AccountRepositoryImpl implements AccountRepository {
     return this,this.accountDataSource.getAccountById(id);
   }
 
+  updateAccount(id: string, account: Partial<AccountEntity>): Promise<AccountEntity> {
+    return this.accountDataSource.updateAccount(id, account); 
+  }
+
   deleteAccount(id: string): Promise<AccountEntity> {
     return this.accountDataSource.deleteAccount(id);
   }
