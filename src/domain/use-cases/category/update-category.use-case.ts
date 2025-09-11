@@ -11,8 +11,8 @@ interface CategoryCreated {
 export class UpdateCategory {
   constructor(private readonly categoryRepository: CategoryRepository) { }
 
-  async execute(updateCategoryDTO: UpdateCategoryDto): Promise<CategoryCreated> {
-    const category = await this.categoryRepository.updateCategory(updateCategoryDTO);
+  async execute(updateCategoryDTO: UpdateCategoryDto, categoryId: string): Promise<CategoryCreated> {
+    const category = await this.categoryRepository.updateCategory(categoryId, updateCategoryDTO);
     if (!category) {
       throw CustomError.internalServerError('Failed to update category');
     }

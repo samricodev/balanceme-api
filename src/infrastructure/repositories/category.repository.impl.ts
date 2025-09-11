@@ -15,8 +15,8 @@ export class CategoryRepositoryImpl implements CategoryRepository {
     return this.categoryDataSource.getCategories(userId);
   }
 
-  updateCategory(category: CategoryEntity): Promise<CategoryEntity> {
-    return this.categoryDataSource.updateCategory(category);
+  updateCategory(categoryId: string, category: CategoryEntity): Promise<CategoryEntity> {
+    return this.categoryDataSource.updateCategory(categoryId, category);
   }
 
   deleteCategory(categoryId: string): Promise<CategoryEntity> {

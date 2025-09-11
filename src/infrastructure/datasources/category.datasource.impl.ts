@@ -67,10 +67,10 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
     }
   }
 
-  async updateCategory(category: CategoryEntity): Promise<CategoryEntity> {
+  async updateCategory(categoryId: string, category: CategoryEntity): Promise<CategoryEntity> {
     try {
       const updatedCategory = await CategoryModel.findByIdAndUpdate(
-        category.id,
+        categoryId,
         {
           name: category.name,
           type: category.type,

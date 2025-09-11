@@ -54,13 +54,13 @@ export class CategoryController {
       return res.status(400).json({ error: 'Category ID is required' });
     }
 
-    const [error, categoryDto] = UpdateCategoryDto.create({ ...req.body, id: categoryId });
+    const [error, categoryDto] = UpdateCategoryDto.create({ ...req.body });
     if (error) {
       return res.status(400).json({ error });
     }
 
     new UpdateCategory(this.categoryRepository)
-      .execute(categoryDto!)
+      .execute(categoryDto!, categoryId)
       .then(category => {
         res.status(200).json(category);
       })
