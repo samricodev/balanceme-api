@@ -13,6 +13,8 @@ export class CategoryRoutes {
 
     router.post('/create', [AuthMiddleware.validateJWT], categoryController.createCategory);
     router.get('/:userId', [AuthMiddleware.validateJWT], categoryController.getCategories);
+    router.put('/:id', [AuthMiddleware.validateJWT], categoryController.updateCategory);
+    router.delete('/:id', [AuthMiddleware.validateJWT], categoryController.deleteCategory);
 
     return router;
   }

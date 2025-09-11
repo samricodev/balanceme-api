@@ -14,6 +14,7 @@ export * from './dtos/account/register-account.dto';
 export * from './dtos/account/update-account.dto';
 
 export * from './dtos/category/create-category.dto';
+export * from './dtos/category/update-category.dto';
 
 export * from './dtos/transaction/create-transaction.dto';
 
@@ -42,6 +43,8 @@ export * from './use-cases/account/register-account.use-case';
 
 export * from './use-cases/category/get-categories.use-case';
 export * from './use-cases/category/create-category.use-case';
+export * from './use-cases/category/update-category.use-case';
+export * from './use-cases/category/delete-category.use-case';
 
 export * from './use-cases/transaction/get-transactions.use-case';
 export * from './use-cases/transaction/create-transaction.use-case';

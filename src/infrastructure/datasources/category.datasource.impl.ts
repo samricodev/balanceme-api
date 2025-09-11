@@ -1,8 +1,8 @@
-import { 
-  CategoryDataSource, 
-  CategoryEntity, 
-  CreateCategoryDto, 
-  CustomError 
+import {
+  CategoryDataSource,
+  CategoryEntity,
+  CreateCategoryDto,
+  CustomError
 } from '../../domain';
 import { CategoryMapper } from '../';
 import { CategoryModel, UserModel } from '../../data/mongodb';
@@ -62,6 +62,44 @@ export class CategoryDataSourceImpl implements CategoryDataSource {
     try {
       const categories = await CategoryModel.find({ userId });
       return categories.map((category) => CategoryMapper.categoryEntityFromObject(category));
+    } catch (error) {
+      throw CustomError.internalServerError();
+    }
+  }
+
+  async updateCategory(category: CategoryEntity): Promise<CategoryEntity> {
+    try {
+      const updatedCategory = await CategoryModel.findByIdAndUpdate(
+        category.id,
+        {
+          name: category.name,
+          type: category.type,
+          description: category.description,
+          icon: category.icon,
+          color: category.color,
+          transactionCount: category.transactionCount,
+          totalAmount: category.totalAmount
+        },
+        { new: true }
+      );
+
+      if (!updatedCategory) {
+        throw CustomError.notFound('Category not found');
+      }
+
+      return CategoryMapper.categoryEntityFromObject(updatedCategory);
+    } catch (error) {
+      throw CustomError.internalServerError();
+    }
+  }
+
+  async deleteCategory(categoryId: string): Promise<CategoryEntity> {
+    try {
+      const category = await CategoryModel.findByIdAndDelete(categoryId);
+      if (!category) {
+        throw CustomError.notFound('Category not found');
+      }
+      return CategoryMapper.categoryEntityFromObject(category);
     } catch (error) {
       throw CustomError.internalServerError();
     }
