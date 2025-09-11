@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
-import { 
+import {
   CategoryRepository,
   CreateCategory,
   CreateCategoryDto,
   CustomError,
   GetCategories,
+  UpdateCategory,
+  UpdateCategoryDto,
+  DeleteCategory
 } from '../../domain';
 
 export class CategoryController {
@@ -41,6 +44,39 @@ export class CategoryController {
       .execute(userId)
       .then(categories => {
         res.status(200).json(categories);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  updateCategory = (req: Request, res: Response) => {
+    const categoryId = req.params.id;
+    if (!categoryId) {
+      return res.status(400).json({ error: 'Category ID is required' });
+    }
+
+    const [error, categoryDto] = UpdateCategoryDto.create({ ...req.body });
+    if (error) {
+      return res.status(400).json({ error });
+    }
+
+    new UpdateCategory(this.categoryRepository)
+      .execute(categoryDto!, categoryId)
+      .then(category => {
+        res.status(200).json(category);
+      })
+      .catch(err => this.handleError(err, res));
+  }
+
+  deleteCategory = (req: Request, res: Response) => {
+    const categoryId = req.params.id;
+    if (!categoryId) {
+      return res.status(400).json({ error: 'Category ID is required' });
+    }
+
+    new DeleteCategory(this.categoryRepository)
+      .execute(categoryId)
+      .then(() => {
+        res.status(204).send();
       })
       .catch(err => this.handleError(err, res));
   }

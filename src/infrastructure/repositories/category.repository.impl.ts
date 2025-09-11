@@ -14,4 +14,12 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   getCategories(userId: string): Promise<CategoryEntity[]> {
     return this.categoryDataSource.getCategories(userId);
   }
+
+  updateCategory(categoryId: string, category: CategoryEntity): Promise<CategoryEntity> {
+    return this.categoryDataSource.updateCategory(categoryId, category);
+  }
+
+  deleteCategory(categoryId: string): Promise<CategoryEntity> {
+    return this.categoryDataSource.deleteCategory(categoryId);
+  }
 }
