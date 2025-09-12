@@ -1,6 +1,7 @@
 import { BcryptAdapter } from '../../config';
 import { UserModel } from '../../data/mongodb';
 import { UserMapper } from '../mappers/user.mapper';
+import { EmailSender } from '../utils/emailSender';
 import { 
   AuthDataSource, 
   CustomError, 
@@ -39,6 +40,8 @@ export class AuthDataSourceImpl implements AuthDataSource {
         console.log('Error creating user');
         throw CustomError.internalServerError();
       }
+
+      await EmailSender.sendWelcomeEmail(user.email, user.name);
 
       return UserMapper.userEntityFromObject(user);
 
