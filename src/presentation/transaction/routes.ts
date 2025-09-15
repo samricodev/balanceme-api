@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { TransactionController } from './controller';
 import { AuthMiddleware } from '../middlewares/auth.middleware';
+import { balanceMiddleware } from '../middlewares/balance.middleware';
 import {
   TransactionRepositoryImpl,
   TransactionDataSourceImpl,
@@ -14,7 +15,10 @@ export class TransactionRoutes {
     const transactionRepository = new TransactionRepositoryImpl(dataSource);
     const transactionController = new TransactionController(transactionRepository);
 
-    router.post('/create', [AuthMiddleware.validateJWT], transactionController.createTransaction);
+    router.post('/create', [
+      AuthMiddleware.validateJWT,
+      balanceMiddleware
+    ], transactionController.createTransaction);
     router.get('/:userId', [AuthMiddleware.validateJWT], transactionController.getTransactions);
 
     return router;
