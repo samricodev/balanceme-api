@@ -125,6 +125,9 @@ export class AuthDataSourceImpl implements AuthDataSource {
       }
 
       const updatedUser = await user.save();
+
+      await EmailSender.sendPasswordResetEmail(updatedUser.email, updatedUser.name);
+
       return UserMapper.userEntityFromObject(updatedUser);
 
     } catch (error) {
