@@ -53,7 +53,7 @@ export class EmailSender {
   static async sendPasswordResetEmail(email: string, name: string) {
     const form = new FormData();
 
-    form.append('from', 'Balanceme <no-reply@balanceme.com>');
+    form.append('from', 'Balanceme <inventoryappmx@5e0f9e1ed8ce0c89.maileroo.org>');
     form.append('to', `${name} <${email}>`);
     form.append('subject', 'Restablecimiento de contraseña');
     form.append('html', `
