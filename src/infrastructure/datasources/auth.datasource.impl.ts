@@ -1,7 +1,7 @@
 import { BcryptAdapter } from '../../config';
 import { UserModel } from '../../data/mongodb';
 import { UserMapper } from '../mappers/user.mapper';
-import { EmailSender } from '../utils/emailSender';
+import { UserEmailSender } from '../utils/email/user.email';
 import { 
   AuthDataSource, 
   CustomError, 
@@ -41,7 +41,7 @@ export class AuthDataSourceImpl implements AuthDataSource {
         throw CustomError.internalServerError();
       }
 
-      await EmailSender.sendWelcomeEmail(user.email, user.name);
+      await UserEmailSender.sendWelcomeEmail(user.email, user.name);
 
       return UserMapper.userEntityFromObject(user);
 
@@ -126,7 +126,7 @@ export class AuthDataSourceImpl implements AuthDataSource {
 
       const updatedUser = await user.save();
 
-      await EmailSender.sendPasswordResetEmail(updatedUser.email, updatedUser.name);
+      await UserEmailSender.sendPasswordResetEmail(updatedUser.email, updatedUser.name);
 
       return UserMapper.userEntityFromObject(updatedUser);
 

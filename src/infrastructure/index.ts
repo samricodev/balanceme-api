@@ -14,4 +14,4 @@ export * from './repositories/category.repository.impl';
 export * from './datasources/transaction.datasource.impl';
 export * from './repositories/transaction.repository.impl';
 
-export * from './utils/emailSender';
+export * from './utils/email/user.email';
