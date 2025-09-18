@@ -1,4 +1,5 @@
 import { AccountModel, UserModel } from '../../data/mongodb/';
+import { EmailSender } from '../utils/emailSender'
 import {
   AccountDataSource,
   RegisterAccountDto,
@@ -47,6 +48,11 @@ export class AccountDataSourceImpl implements AccountDataSource {
         await UserModel.findByIdAndUpdate(userId, {
           $push: { accounts: account._id }
         });
+
+        const user = await UserModel.findById(userId);
+        if (user) {
+          await EmailSender.sendNewAccountEmail(user.email, user.name);
+        }
       }
 
       return AccountMapper.accountEntityFromObject(account);
@@ -134,6 +140,15 @@ export class AccountDataSourceImpl implements AccountDataSource {
         console.log('Account not found');
         throw CustomError.notFound('Account not found');
       }
+
+      // Get email and name of the user and send notification
+      if (account.userId) {
+        const user = await UserModel.findById(account.userId);
+        if (user) {
+          await EmailSender.sendDeletedAccountEmail(user.email, user.name);
+        }
+      }
+
       return AccountMapper.accountEntityFromObject(account);
     } catch (error) {
       if (error instanceof CustomError) {
