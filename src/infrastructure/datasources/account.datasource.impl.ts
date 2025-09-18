@@ -1,5 +1,5 @@
 import { AccountModel, UserModel } from '../../data/mongodb/';
-import { EmailSender } from '../utils/emailSender'
+import { AccountEmailSender } from '../utils/email/account.email'
 import {
   AccountDataSource,
   RegisterAccountDto,
@@ -51,7 +51,7 @@ export class AccountDataSourceImpl implements AccountDataSource {
 
         const user = await UserModel.findById(userId);
         if (user) {
-          await EmailSender.sendNewAccountEmail(user.email, user.name);
+          await AccountEmailSender.sendNewAccountEmail(user.email, user.name);
         }
       }
 
@@ -145,7 +145,7 @@ export class AccountDataSourceImpl implements AccountDataSource {
       if (account.userId) {
         const user = await UserModel.findById(account.userId);
         if (user) {
-          await EmailSender.sendDeletedAccountEmail(user.email, user.name);
+          await AccountEmailSender.sendDeletedAccountEmail(user.email, user.name);
         }
       }
 

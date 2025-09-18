@@ -1,17 +1,19 @@
-import { 
-  AccountModel, 
-  TransactionModel, 
-  CategoryModel 
+import {
+  UserModel,
+  AccountModel,
+  CategoryModel,
+  TransactionModel
 } from '../../data/mongodb';
 
 import {
-  TransactionDataSource,
-  CreateTransactionDto,
+  CustomError,
   TransactionEntity,
-  CustomError
+  CreateTransactionDto,
+  TransactionDataSource
 } from '../../domain';
 
 import { TransactionMapper } from '../mappers/transaction.mapper';
+import { MovementEmailSender } from '../utils/email/movement.email';
 
 export class TransactionDataSourceImpl implements TransactionDataSource {
   async createTransaction(createTransactionDto: CreateTransactionDto): Promise<TransactionEntity> {
@@ -65,6 +67,19 @@ export class TransactionDataSourceImpl implements TransactionDataSource {
 
       if (!updatedCategory) {
         throw CustomError.badRequest("Category not found after transaction");
+      }
+
+      if (userId) {
+        const user = await UserModel.findById(userId);
+        if (user && user.email) {
+          await MovementEmailSender.sendNewMovementEmail(user.email, user.name, {
+            type: type as 'income' | 'expense' | 'saving' | 'investment',
+            amount,
+            category: updatedCategory.name,
+            date: transaction.date.toDateString(),
+            account: updatedAccount.name
+          });
+        }
       }
 
       return TransactionMapper.transactionEntityFromObject(transaction);
