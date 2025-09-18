@@ -1,4 +1,5 @@
 import { AccountModel, UserModel } from '../../data/mongodb/';
+import { EmailSender } from '../utils/emailSender'
 import {
   AccountDataSource,
   RegisterAccountDto,
@@ -134,6 +135,9 @@ export class AccountDataSourceImpl implements AccountDataSource {
         console.log('Account not found');
         throw CustomError.notFound('Account not found');
       }
+
+      await EmailSender.sendDeletedAccountEmail((account.userId as any).email, (account.userId as any).name);
+
       return AccountMapper.accountEntityFromObject(account);
     } catch (error) {
       if (error instanceof CustomError) {
