@@ -1,5 +1,5 @@
 const api_key = process.env.MAILER_API_KEY;
-const api_url = 'https://smtp.maileroo.com/send';
+const api_url = process.env.MAILER_API_URL ||'';
 
 export class UserEmailSender {
   static async sendWelcomeEmail(email: string, name: string) {
