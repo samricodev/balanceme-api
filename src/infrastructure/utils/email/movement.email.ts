@@ -31,6 +31,10 @@ const translateDateToSpanish = (dateStr: string) => {
   });
 };
 
+const formatAmount = (amount: number) => {
+  return amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 export class MovementEmailSender {
   static async sendNewMovementEmail(email: string, name: string, movement: Movement) {
     const form = new FormData();
@@ -58,7 +62,7 @@ export class MovementEmailSender {
             </tr>
             <tr>
               <td style="padding: 12px; border: 1px solid #ecf0f1;"><strong>Monto:</strong></td>
-              <td style="padding: 12px; border: 1px solid #ecf0f1;">$${movement.amount.toFixed(2)}</td>
+              <td style="padding: 12px; border: 1px solid #ecf0f1;">$${formatAmount(movement.amount)}</td>
             </tr>
             <tr>
               <td style="padding: 12px; border: 1px solid #ecf0f1;"><strong>Cuenta:</strong></td>
@@ -70,8 +74,11 @@ export class MovementEmailSender {
             </tr>
           </table>
           <p style="font-size: 16px; color: #34495e;">Puedes revisar los detalles y gestionar tus movimientos en la aplicación.</p>
-          <div style="text-align: center;">
-            <button onclick="window.location.href='http://localhost:5173/dashboard'" style="display: inline-block; padding: 12px 24px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 16px; margin-top: 16px;">Ir a Balanceme</button>
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="http://localhost:5173/dashboard"
+              style="display: inline-block; padding: 14px 32px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 17px; font-weight: bold; box-sizing: border-box; width: 100%; max-width: 320px; text-align: center;">
+              Ir a Balanceme
+            </a>
           </div>
           <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 0;">¿Tienes dudas o necesitas ayuda? Responde a este correo, ¡estamos para ayudarte!</p>
           <hr style="margin: 32px 0; border : none; border-top: 1px solid #ecf0f1;" />
