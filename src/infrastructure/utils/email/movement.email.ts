@@ -71,7 +71,7 @@ export class MovementEmailSender {
           </table>
           <p style="font-size: 16px; color: #34495e;">Puedes revisar los detalles y gestionar tus movimientos en la aplicación.</p>
           <div style="text-align: center;">
-            <a href="http://localhost:5173/dashboard" style="display: inline-block; padding: 12px 24px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 16px; margin-top: 16px;">Ir a Balanceme</a>
+            <button onclick="window.location.href='http://localhost:5173/dashboard'" style="display: inline-block; padding: 12px 24px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 16px; margin-top: 16px;">Ir a Balanceme</button>
           </div>
           <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 0;">¿Tienes dudas o necesitas ayuda? Responde a este correo, ¡estamos para ayudarte!</p>
           <hr style="margin: 32px 0; border : none; border-top: 1px solid #ecf0f1;" />
