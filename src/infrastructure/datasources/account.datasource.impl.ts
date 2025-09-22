@@ -18,6 +18,7 @@ export class AccountDataSourceImpl implements AccountDataSource {
       type,
       currency,
       balance,
+      balanceLimit,
       createdAt,
       updatedAt
     } = registerAccountDTO;
@@ -35,6 +36,7 @@ export class AccountDataSourceImpl implements AccountDataSource {
         type,
         currency,
         balance,
+        balanceLimit,
         createdAt,
         updatedAt
       });
