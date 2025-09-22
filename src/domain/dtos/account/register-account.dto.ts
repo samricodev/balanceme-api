@@ -7,18 +7,20 @@ export class RegisterAccountDto {
     public type: string,
     public currency: string,
     public balance: number,
+    public balanceLimit: number,
     public createdAt: Date = new Date(),
     public updatedAt: Date = new Date()
   ) {}
 
   static create(object: { [key: string]: any; }): [string?, RegisterAccountDto?] {
-    const { userId, name, type, currency, balance } = object;
+    const { userId, name, type, currency, balance, balanceLimit } = object;
 
     if (!userId) return ['Missing userId'];
     if (!name) return ['Missing name'];
     if (!type) return ['Missing type'];
     if (!currency) return ['Missing currency'];
     if (typeof balance !== 'number') return ['Invalid balance'];
+    if (typeof balanceLimit !== 'number') return ['Invalid balanceLimit'];
 
     if (!accountValidators.accountName.test(name)) return ['Invalid name'];
     if (!accountValidators.accountType.test(type)) return ['Invalid type'];
@@ -33,6 +35,7 @@ export class RegisterAccountDto {
         type,
         currency,
         balance,
+        balanceLimit,
         new Date(),
         new Date()
       )

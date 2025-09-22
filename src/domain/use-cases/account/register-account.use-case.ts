@@ -7,6 +7,7 @@ interface AccountCreated {
   type: string;
   currency: string;
   balance: number;
+  balanceLimit: number;
 }
 
 export class RegisterAccount {
@@ -25,7 +26,8 @@ export class RegisterAccount {
       name: account.name,
       type: account.type,
       currency: account.currency,
-      balance: account.balance
+      balance: account.balance,
+      balanceLimit: account.balanceLimit
     };
   }
 }

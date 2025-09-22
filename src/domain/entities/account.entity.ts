@@ -6,6 +6,7 @@ export class AccountEntity {
     public type: string,
     public currency: string,
     public balance: number,
+    public balanceLimit: number,
     public createdAt: Date,
     public updatedAt: Date
   ) { }

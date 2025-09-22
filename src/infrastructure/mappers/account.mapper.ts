@@ -2,7 +2,7 @@ import { AccountEntity } from "../../domain";
 
 export class AccountMapper {
   static accountEntityFromObject(object: { [key: string]: any }): AccountEntity {
-    const { _id, id, name, userId, type, currency, balance, createdAt, updatedAt } = object;
+    const { _id, id, name, userId, type, currency, balance, balanceLimit, createdAt, updatedAt } = object;
 
     if (!id && !_id) {
       throw new Error('Invalid account object: missing id or _id');
@@ -30,6 +30,7 @@ export class AccountMapper {
       type,
       currency,
       balance,
+      balanceLimit,
       createdAt,
       updatedAt
     );
