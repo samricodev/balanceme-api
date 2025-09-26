@@ -23,7 +23,7 @@ export class UserEmailSender {
             <li>Recibe consejos personalizados</li>
           </ul>
           <div style="text-align: center; margin: 32px 0;">
-            <a href="http://localhost:5173/" style="background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold; box-shadow: 0 2px 8px rgba(39,174,96,0.12);">Comenzar ahora</a>
+            <a href="http://localhost:5173/" style="display: inline-block; background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold; box-shadow: 0 2px 8px rgba(39,174,96,0.12); width: 100%; max-width: 320px; text-align: center;">Comenzar ahora</a>
           </div>
           <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 0;">¿Tienes dudas o sugerencias? Responde a este correo, ¡estamos para ayudarte!</p>
           <hr style="margin: 32px 0; border: none; border-top: 1px solid #ecf0f1;" />
@@ -66,7 +66,7 @@ export class UserEmailSender {
           <p style="font-size: 18px; color: #34495e; margin-bottom: 8px;">Hola <strong>${name}</strong>,</p>
           <p style="font-size: 16px; color: #34495e; margin-bottom: 16px;">Se ha actualizado la información de tu cuenta. Si no fuiste tú, puedes ignorar este correo.</p>
           <div style="text-align: center; margin: 32px 0;">
-            <a href="http://localhost:5173/update-account" style="background: linear-gradient(90deg, #f39c12 0%, #f1c40f 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold; box-shadow: 0 2px 8px rgba(243,156,18,0.12);">Actualizar información</a>
+            <a href="http://localhost:5173/update-account" style="display: inline-block; background: linear-gradient(90deg, #f39c12 0%, #f1c40f 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold; box-shadow: 0 2px 8px rgba(243,156,18,0.12); width: 100%; max-width: 320px; text-align: center;">Actualizar información</a>
           </div>
           <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 0;">¿Tienes dudas o necesitas ayuda? Responde a este correo, ¡estamos para ayudarte!</p>
           <hr style="margin: 32px 0; border: none; border-top: 1px solid #ecf0f1;" />
