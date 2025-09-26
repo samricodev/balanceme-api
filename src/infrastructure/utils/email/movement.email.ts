@@ -48,7 +48,7 @@ export class MovementEmailSender {
           <p style="font-size: 16px; color: #34495e;">Puedes revisar los detalles y gestionar tus movimientos en la aplicación.</p>
           <div style="text-align: center; margin-top: 16px;">
             <a href="http://localhost:5173/dashboard"
-              style="display: inline-block; padding: 14px 32px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 17px; font-weight: bold; box-sizing: border-box; width: 100%; max-width: 320px; text-align: center;">
+              style="display: inline-block; padding: 14px 32px; background-color: #e67e22; color: #fff; text-decoration: none; border-radius: 8px; font-size: 17px; font-weight: bold; box-sizing: border-box; width: 100%; max-width: 320px; text-align: center; margin-left: auto; margin-right: auto;">
               Ir a Balanceme
             </a>
           </div>
